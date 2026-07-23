@@ -47,3 +47,4 @@ def attempt_tracker(store, key, action, max_attempts=3, lockout_seconds=300):
     # action == "check": look without recording anything
     store[key] = entry
     return bool(entry["locked_until"] and now < entry["locked_until"])
+# demo: unrelated helper touch
