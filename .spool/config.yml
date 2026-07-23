@@ -1,0 +1,25 @@
+assignment_sources:
+  - pr_body_spool_task
+  - linked_github_issue
+  - pr_body
+
+agent_summary_sources:
+  - pr_body_agent_summary
+  - pr_body
+
+test_evidence_sources:
+  - github_checks
+  - pr_body_tests_run
+
+ignore_paths:
+  - .idea/
+  - __pycache__/
+  - "*.pyc"
+  - outputs/
+  - dogfood/
+
+risky_paths:
+  - requirements.txt
+  - pyproject.toml
+  - package.json
+  - .github/workflows/
