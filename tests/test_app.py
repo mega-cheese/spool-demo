@@ -37,3 +37,11 @@ def test_task_count_requires_login():
     with app_module.app.test_client() as client:
         response = client.get("/api/tasks/count")
         assert response.status_code == 302
+
+
+def test_health_check():
+    app_module.app.config["TESTING"] = True
+    with app_module.app.test_client() as client:
+        response = client.get("/health")
+        assert response.status_code == 200
+        assert response.get_json() == {"status": "ok"}

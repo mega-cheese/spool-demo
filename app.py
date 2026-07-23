@@ -69,5 +69,10 @@ def task_count():
     return jsonify({"count": len(_tasks.get(username, []))})
 
 
+@app.route("/health")
+def health():
+    return jsonify({"status": "ok"})
+
+
 if __name__ == "__main__":
     app.run(debug=True)
