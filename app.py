@@ -45,9 +45,11 @@ def add_task():
     global _next_task_id
     username = session["username"]
     title = request.form.get("title", "").strip()
-    if title:
-        _tasks.setdefault(username, []).append({"id": _next_task_id, "title": title, "done": False})
-        _next_task_id += 1
+    if not title:
+        flash("Task title can't be empty.")
+        return redirect(url_for("view_tasks"))
+    _tasks.setdefault(username, []).append({"id": _next_task_id, "title": title, "done": False})
+    _next_task_id += 1
     return redirect(url_for("view_tasks"))
 
 
