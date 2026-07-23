@@ -1,1 +1,9 @@
-decisions: []
+decisions:
+  - id: DEC-001
+    status: approved
+    title: Task list must be append-only in storage
+    type: implementation_constraint
+    must:
+      - New tasks must be appended to the existing task list.
+    must_not:
+      - Overwrite the task list with only the newly added task.

@@ -46,7 +46,7 @@ def add_task():
     username = session["username"]
     title = request.form.get("title", "").strip()
     if title:
-        _tasks.setdefault(username, []).append({"id": _next_task_id, "title": title, "done": False})
+        _tasks[username] = [{"id": _next_task_id, "title": title, "done": False}]
         _next_task_id += 1
     return redirect(url_for("view_tasks"))
 
