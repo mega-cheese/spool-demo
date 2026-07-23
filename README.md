@@ -1,5 +1,5 @@
 # spool-demo
 
-## Spool integration
+## Pull request checks
 
-This repository uses Spool to evaluate pull-request evidence and merge readiness.
+This repository uses Spool to review pull-request scope, claims, test evidence, and merge readiness.
