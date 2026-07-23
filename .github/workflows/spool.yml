@@ -28,7 +28,7 @@ jobs:
         with:
           repository: mega-cheese/spool
           path: .spool-runtime
-          token: ${{ secrets.SPOOL_REPO_TOKEN }}
+          token: ${{ github.token }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
