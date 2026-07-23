@@ -55,11 +55,12 @@ jobs:
             --out "outputs/spool/pr-${{ github.event.pull_request.number }}"
 
       - name: Post Spool comment
-        working-directory: .spool-runtime
+        working-directory: ${{ github.workspace }}
         env:
           GH_TOKEN: ${{ secrets.SPOOL_GITHUB_TOKEN }}
         run: |
-          python scripts/spool_comment_pr.py \
+          python .spool-runtime/scripts/spool_comment_pr.py \
             "${{ github.event.pull_request.html_url }}" \
-            --report "outputs/spool/pr-${{ github.event.pull_request.number }}/trust_report.json" \
-            --post
+            --report ".spool-runtime/outputs/spool/pr-${{ github.event.pull_request.number }}/trust_report.json" \
+            --post \
+            --force-new
