@@ -28,7 +28,7 @@ jobs:
         with:
           repository: mega-cheese/spool
           path: .spool-runtime
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.SPOOL_GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -47,7 +47,7 @@ jobs:
       - name: Run Spool merge authorization
         working-directory: .spool-runtime
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.SPOOL_GITHUB_TOKEN }}
         run: |
           python scripts/spool_check_pr.py \
             "${{ github.event.pull_request.html_url }}" \
@@ -57,7 +57,7 @@ jobs:
       - name: Post Spool comment
         working-directory: .spool-runtime
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.SPOOL_GITHUB_TOKEN }}
         run: |
           python scripts/spool_comment_pr.py \
             "${{ github.event.pull_request.html_url }}" \
