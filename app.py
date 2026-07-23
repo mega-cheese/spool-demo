@@ -1,5 +1,5 @@
 """TaskFlow: a very small to-do list app. Main routes live here."""
-from flask import Flask, flash, redirect, render_template, request, session, url_for
+from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
 
 from auth import authenticate
 from utils import login_required
@@ -60,6 +60,13 @@ def complete_task(task_id):
             task["done"] = True
             break
     return redirect(url_for("view_tasks"))
+
+
+@app.route("/api/tasks/count")
+@login_required
+def task_count():
+    username = session["username"]
+    return jsonify({"count": len(_tasks.get(username, []))})
 
 
 if __name__ == "__main__":
