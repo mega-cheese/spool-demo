@@ -2,7 +2,7 @@
 from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
 
 from auth import authenticate
-from utils import login_required
+from utils import cached_lookup, invalidate_cache, login_required
 
 app = Flask(__name__)
 app.secret_key = "dev-secret-key-change-me"
@@ -10,6 +10,10 @@ app.secret_key = "dev-secret-key-change-me"
 # In-memory task storage: {username: [{"id": int, "title": str, "done": bool}]}
 _tasks = {}
 _next_task_id = 1
+
+# Short-lived cache of each user's task list, keyed by username, so a burst
+# of page loads doesn't redo the lookup every time. Invalidated on writes.
+_tasks_cache = {}
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -35,7 +39,7 @@ def logout():
 @login_required
 def view_tasks():
     username = session["username"]
-    tasks = _tasks.get(username, [])
+    tasks = cached_lookup(_tasks_cache, username, lambda: _tasks.get(username, []))
     return render_template("tasks.html", tasks=tasks, username=username)
 
 
@@ -48,6 +52,7 @@ def add_task():
     if title:
         _tasks.setdefault(username, []).append({"id": _next_task_id, "title": title, "done": False})
         _next_task_id += 1
+        invalidate_cache(_tasks_cache, username)
     return redirect(url_for("view_tasks"))
 
 
@@ -59,6 +64,7 @@ def complete_task(task_id):
         if task["id"] == task_id:
             task["done"] = True
             break
+    invalidate_cache(_tasks_cache, username)
     return redirect(url_for("view_tasks"))
 
 
