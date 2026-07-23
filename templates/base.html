@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>TaskFlow</title>
+  <style>
+    body { font-family: sans-serif; max-width: 480px; margin: 40px auto; color: #222; }
+    h1 { margin-bottom: 4px; }
+    form { margin: 16px 0; }
+    input[type=text], input[type=password] { padding: 6px; width: 100%; box-sizing: border-box; margin-bottom: 8px; }
+    button { padding: 6px 12px; }
+    ul { padding-left: 0; list-style: none; }
+    li { padding: 6px 0; border-bottom: 1px solid #eee; }
+    li.done { color: #888; text-decoration: line-through; }
+    .flash { background: #fee; border: 1px solid #c66; padding: 8px; margin-bottom: 12px; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; }
+  </style>
+</head>
+<body>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</body>
+</html>

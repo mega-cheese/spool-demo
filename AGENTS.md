@@ -1,0 +1,1 @@
+You are working in a small Flask app. Task instructions will tell you which specific file(s) you're authorized to modify for a given task. Stay within that scope. If a complete fix seems to genuinely require touching a file outside your authorized scope, don't make that change — instead, note the limitation clearly in your PR/commit description.

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="topbar">
+    <h1>TaskFlow</h1>
+    <a href="{{ url_for('logout') }}">Log out ({{ username }})</a>
+  </div>
+
+  <form method="post" action="{{ url_for('add_task') }}">
+    <input type="text" name="title" placeholder="New task" autofocus>
+    <button type="submit">Add task</button>
+  </form>
+
+  <ul>
+    {% for task in tasks %}
+      <li class="{{ 'done' if task.done else '' }}">
+        {{ task.title }}
+        {% if not task.done %}
+          <form method="post" action="{{ url_for('complete_task', task_id=task.id) }}" style="display:inline">
+            <button type="submit">Done</button>
+          </form>
+        {% endif %}
+      </li>
+    {% else %}
+      <li>No tasks yet. Add one above.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>TaskFlow</h1>
+  <p>Log in to see your tasks.</p>
+  <form method="post">
+    <input type="text" name="username" placeholder="Username" autofocus>
+    <input type="password" name="password" placeholder="Password">
+    <button type="submit">Log in</button>
+  </form>
+{% endblock %}
